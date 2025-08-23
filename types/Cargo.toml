@@ -1,0 +1,12 @@
+[package]
+name = "types"
+readme = "../README.md"
+description = "Chess library for chesslocal"
+repository = "https://gitlab.com/chesslocal/chess"
+license = "MIT"
+keywords = ["chess", "chesslocal"]
+categories = ["games"]
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]

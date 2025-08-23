@@ -1,0 +1,28 @@
+[package]
+name = "chess"
+description = "Chess library for chesslocal"
+readme = "../README.md"
+repository = "https://gitlab.com/chesslocal/chess"
+license = "MIT"
+keywords = ["chess", "chesslocal"]
+categories = ["games"]
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+types = { path = "../types" }
+
+[build-dependencies]
+fastrand = "2.3.0"
+types = { path = "../types" }
+
+[[bench]]
+name = "perft"
+harness = false
+
+[[bench]]
+name = "generate_fen"
+harness = false
+
+[dev-dependencies]
+criterion = "0.7.0"

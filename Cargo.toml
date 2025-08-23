@@ -1,0 +1,19 @@
+[workspace]
+resolver = "3"
+members = ["chess"]
+
+# [build-dependencies]
+# types = { path = "./types" }
+
+# [depencdencies]
+# types = { path = "./types" }
+
+[profile.release]
+strip = true
+
+[profile.bench]
+debug = true
+strip = false
+
+[profile.bench.build-override]
+opt-level = 3
