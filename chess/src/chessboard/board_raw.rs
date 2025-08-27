@@ -1,7 +1,8 @@
 use types::{Castling, ChessError, Directions, File, Rank};
 
 use crate::{
-    Bitboard, CastlingInfo, Chessboard, Piece, PieceType, Side, Square, chessboard::FenBuilder,
+    Bitboard, CastlingInfo, Chessboard, Piece, PieceType, Side, Square,
+    chessboard::{FenBuilder},
 };
 
 /// Raw chessboard representation
@@ -97,7 +98,7 @@ impl ChessboardRaw {
 
         let mut reset_halfmoves = false;
         match m {
-            types::Move::Standart { piece, from, to } => {
+            types::Move::Standard { piece, from, to } => {
                 match piece.piece_type() {
                     PieceType::Pawn => {
                         let start_rank = from.rank().as_u8();

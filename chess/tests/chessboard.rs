@@ -15,7 +15,9 @@ fn new_starting() {
 #[test]
 fn game_over() {
     static FEN: &str = "rnb1kbnr/pppp1ppp/8/4p3/6Pq/5P2/PPPPP2P/RNBQKBNR w KQkq - 1 3";
-    let chess = Chessboard::from_fen(FEN).unwrap();
+    let chess =
+        Chessboard::from_fen(FEN)
+            .unwrap();
     println!("{:#?}", chess);
     println!("{}", chess);
     assert_eq!(chess.get_fen(), FEN);
@@ -37,7 +39,7 @@ fn new_kiwipete() {
 #[test]
 fn en_passant() {
     let mut chess = Chessboard::from_fen(START_POS).unwrap();
-    chess.make_move(Move::Standart {
+    chess.make_move(Move::Standard {
         piece: Piece::from_char('P').unwrap(),
         from: Square::A2,
         to: Square::A4,

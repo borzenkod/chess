@@ -4,7 +4,7 @@ use crate::{Castling, Piece, Square};
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Move {
     /// Like e2e4
-    Standart {
+    Standard {
         piece: Piece,
         from: Square,
         to: Square,

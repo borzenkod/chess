@@ -1,4 +1,4 @@
-use types::{Bitboard, Move, MoveList, Moves, Piece, Square};
+use types::{Bitboard, MoveList, Moves, Piece, Square};
 
 #[test]
 fn empty() {
@@ -24,23 +24,6 @@ fn push_one() {
     };
     ml.push(moves);
     assert_eq!(ml.count(), 2);
-
-    assert_eq!(
-        ml.next_const(),
-        Some(Move::Standart {
-            piece: Piece::WHITE_PAWN,
-            from: Square::C2,
-            to: Square::C3
-        })
-    );
-    assert_eq!(
-        ml.next_const(),
-        Some(Move::Standart {
-            piece: Piece::WHITE_PAWN,
-            from: Square::C2,
-            to: Square::C4
-        })
-    );
 }
 
 #[test]

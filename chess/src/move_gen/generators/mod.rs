@@ -1,6 +1,5 @@
 use crate::{
-    Bitboard, Chessboard, Piece, Square, get_bishop_attacks, get_king_attacks, get_knight_attacks,
-    get_pawn_attacks, get_rook_attacks,
+    get_bishop_attacks, get_king_attacks, get_knight_attacks, get_pawn_attacks, get_rook_attacks, Bitboard, Chessboard, MoveGen, Piece, Square
 };
 
 mod bishop;
@@ -60,7 +59,8 @@ pub const fn perft(cb: &mut Chessboard, depth: u32) -> usize {
 
     let mut count = 0;
     let mut moves = cb.moves_cache;
-    while let Some(m) = moves.next_const() {
+    let mut move_gen = MoveGen::new(&mut moves);
+    while let Some(m) = move_gen.next_const() {
         count += perft(&mut cb.move_new(m), depth - 1);
     }
     count

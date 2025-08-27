@@ -1,8 +1,7 @@
 use types::{CastlingInfo, ChessError, GameResult, Move, MoveList, WinType};
 
 use crate::{
-    Bitboard, ChessboardRaw, Piece, PieceType, Side, Square, get_bishop_attacks, get_bishop_pinner,
-    get_connection_direct, get_knight_attacks, get_pawn_attacks, get_rook_attacks, get_rook_pinner,
+    get_bishop_attacks, get_bishop_pinner, get_connection_direct, get_knight_attacks, get_pawn_attacks, get_rook_attacks, get_rook_pinner, Bitboard, ChessboardRaw, MoveGen, Piece, PieceType, Side, Square, START_POS
 };
 
 /// Chessboard representation
@@ -22,6 +21,11 @@ pub struct Chessboard {
 }
 
 impl Chessboard {
+    pub const START: Self = match Self::from_fen(START_POS) {
+        Ok(v) => v,
+        Err(_) => unreachable!()
+    };
+
     /// Create a new chessboard from a FEN
     pub const fn from_fen(fen: &str) -> Result<Self, ChessError> {
         let raw = ChessboardRaw::from_fen(fen);
@@ -247,7 +251,8 @@ impl Chessboard {
         let mut vec = Vec::new();
         let mut moves = self.moves_cache;
 
-        while let Some(m) = moves.next_const() {
+        let mut move_gen = MoveGen::new(&mut moves);
+        while let Some(m) = move_gen.next_const() {
             vec.push(m);
         }
 

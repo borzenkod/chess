@@ -1,24 +1,25 @@
 use std::{time::Instant};
 
-use chess::{START_POS};
+use chess::{START_POS, Chessboard, perft as g_perft};
 
 #[cfg(not(clippy))]
 const fn _perft(d: u32) -> usize {
-    use chess::{Chessboard, perft as g_perft};
-    let mut cb = match Chessboard::from_fen(FEN) {
-        Ok(cb) => cb,
-        Err(_) => unreachable!(),
-    };
+    let mut cb = BOARD;
     g_perft(&mut cb, d)
 }
 
 #[cfg(clippy)]
-const fn _perft(d: u32) -> usize {
-    d as usize
+const fn _perft(_: u32) -> usize {
+    let mut cb = BOARD;
+    g_perft(&mut cb, 0)
 }
 
 const FEN: &str = START_POS;
-const COMPUTE_TO: usize = 3;
+const BOARD: Chessboard = match Chessboard::from_fen(FEN) {
+    Ok(v) => v,
+    Err(_) => unreachable!()
+};
+const COMPUTE_TO: usize = 4;
 #[allow(long_running_const_eval)]
 const PERFT: [usize; COMPUTE_TO + 1] = {
     let mut arr = [0usize; COMPUTE_TO + 1];
@@ -38,16 +39,16 @@ fn main() {
     for depth in 1..=COMPUTE_TO {
         let now = Instant::now();
         let perft = _perft(depth as u32);
-        println!("perft @depth {} is #{}", depth, perft);
+        println!(" perft @depth {} is #{}", depth, perft);
         let elapsed = now.elapsed();
-        println!("Elapsed: {:?}", elapsed);
+        println!(" Elapsed: {:?}", elapsed);
     }
     println!("Compile-time:");
     for depth in 1..=COMPUTE_TO {
         let now = Instant::now();
         let perft = PERFT[depth];
-        println!("perft @depth {} is #{}", depth, perft);
+        println!(" perft @depth {} is #{}", depth, perft);
         let elapsed = now.elapsed();
-        println!("Elapsed: {:?}", elapsed);
+        println!(" Elapsed: {:?}", elapsed);
     }
 }
