@@ -58,8 +58,7 @@ pub const fn perft(cb: &mut Chessboard, depth: u32) -> usize {
     }
 
     let mut count = 0;
-    let mut moves = cb.moves_cache;
-    let mut move_gen = MoveGen::new(&mut moves);
+    let mut move_gen = MoveGen::new(cb.moves_cache);
     while let Some(m) = move_gen.next_const() {
         count += perft(&mut cb.move_new(m), depth - 1);
     }

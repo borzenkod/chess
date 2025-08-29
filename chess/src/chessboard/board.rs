@@ -249,9 +249,7 @@ impl Chessboard {
 
     pub fn to_vec(&self) -> Vec<Move> {
         let mut vec = Vec::new();
-        let mut moves = self.moves_cache;
-
-        let mut move_gen = MoveGen::new(&mut moves);
+        let mut move_gen = MoveGen::new(self.moves_cache);
         while let Some(m) = move_gen.next_const() {
             vec.push(m);
         }

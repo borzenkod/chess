@@ -8,13 +8,13 @@ pub use tables::*;
 use crate::{Castling, Chessboard, Move, MoveList, Piece, PieceType, Rank, Side, Square};
 
 #[derive(Debug)]
-pub struct MoveGen<'a> {
-    cache: &'a mut MoveList,
+pub struct MoveGen {
+    cache: MoveList,
     promotion: u8,
 }
 
-impl<'a> MoveGen<'a> {
-    pub const fn new(cache: &'a mut MoveList) -> Self {
+impl MoveGen {
+    pub const fn new(cache: MoveList) -> Self {
         Self {
             cache,
             promotion: 0
