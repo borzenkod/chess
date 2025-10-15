@@ -25,10 +25,12 @@ impl Directions {
         Self::DownRight,
     ];
 
+    #[must_use]
     pub const fn as_u8(self) -> u8 {
         self as u8
     }
 
+    #[must_use]
     pub const fn edge(&self) -> Bitboard {
         match self {
             Self::Up => Rank::Eighth.bitboard(),
@@ -58,6 +60,7 @@ impl Directions {
         }
     }
 
+    #[must_use]
     pub const fn from_u8(value: u8) -> Self {
         // Safety: & 7 ensures that the value is in range [0, 7]
         unsafe { core::mem::transmute(value & 7) }
@@ -71,41 +74,50 @@ pub struct Bitboard(u64);
 impl Bitboard {
     pub const EMPTY: Self = Self(0);
     pub const FULL: Self = Self::neg(&Self::EMPTY);
-    pub const WHITE_SQUARES: Self = Self(0x55AA55AA55AA55AA);
+    pub const WHITE_SQUARES: Self = Self(0x55AA_55AA_55AA_55AA);
     pub const BLACK_SQUARES: Self = Self::neg(&Self::WHITE_SQUARES);
 
+    #[must_use]
     pub const fn from_u64(value: u64) -> Self {
         Self(value)
     }
 
+    #[must_use]
     pub const fn as_u64(&self) -> u64 {
         self.0
     }
 
+    #[must_use]
     pub const fn is_empty(&self) -> bool {
         self.0 == 0
     }
 
+    #[must_use]
     pub const fn neg(&self) -> Self {
         Self(!self.0)
     }
 
+    #[must_use]
     pub const fn or(&self, rhs: Self) -> Self {
         Self(self.0 | rhs.0)
     }
 
+    #[must_use]
     pub const fn and(&self, rhs: Self) -> Self {
         Self(self.0 & rhs.0)
     }
 
+    #[must_use]
     pub const fn xor(&self, rhs: Self) -> Self {
         Self(self.0 ^ rhs.0)
     }
 
+    #[must_use]
     pub const fn overlaps(&self, bitboard: Bitboard) -> bool {
         self.0 & bitboard.0 != 0
     }
 
+    #[must_use]
     pub const fn first_square(&self) -> Option<Square> {
         if self.is_empty() {
             None
@@ -114,6 +126,7 @@ impl Bitboard {
         }
     }
 
+    #[must_use]
     pub const fn from_squares(sq: &[Square]) -> Self {
         let mut new = Self::EMPTY;
         let mut index = 0;
@@ -127,26 +140,32 @@ impl Bitboard {
         new
     }
 
+    #[must_use]
     pub const fn popcnt(&self) -> u32 {
         self.0.count_ones()
     }
 
+    #[must_use]
     pub const fn shift_up(&self) -> Bitboard {
         Self(self.0 << 8)
     }
 
+    #[must_use]
     pub const fn shift_down(&self) -> Bitboard {
         Self(self.0 >> 8)
     }
 
+    #[must_use]
     pub const fn shift_left(&self) -> Bitboard {
         Self(self.0 >> 1)
     }
 
+    #[must_use]
     pub const fn shift_right(&self) -> Bitboard {
         Self(self.0 << 1)
     }
 
+    #[must_use]
     pub const fn scan_forward(self) -> Option<Square> {
         if self.is_empty() {
             None
@@ -155,6 +174,7 @@ impl Bitboard {
         }
     }
 
+    #[must_use]
     pub const fn scan_backward(self) -> Option<Square> {
         if self.is_empty() {
             None
@@ -163,6 +183,7 @@ impl Bitboard {
         }
     }
 
+    #[must_use]
     pub const fn shift(&self, dir: Directions) -> Bitboard {
         match dir {
             Directions::Up => self.shift_up(),
@@ -176,10 +197,10 @@ impl Bitboard {
         }
     }
 
+    #[must_use]
     pub const fn next_const(&mut self) -> Option<Square> {
-        let sq = match self.first_square() {
-            Some(s) => s,
-            None => return None,
+        let Some(sq) = self.first_square() else {
+            return None;
         };
         self.0 ^= sq.bitboard().0;
         Some(sq)
@@ -244,6 +265,7 @@ impl From<u64> for Bitboard {
     }
 }
 
+#[allow(clippy::copy_iterator)]
 impl Iterator for Bitboard {
     type Item = Square;
 

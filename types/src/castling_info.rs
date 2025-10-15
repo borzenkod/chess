@@ -11,11 +11,13 @@ impl CastlingInfo {
     pub const DEFAULT: Self = Self::from_u8(0b1111);
 
     /// Returns the [`CastlingInfo`] as u8
+    #[must_use]
     pub const fn as_u8(&self) -> u8 {
         self.0 & 15
     }
 
     /// Creates new [`CastlingInfo`] from u8
+    #[must_use]
     pub const fn from_u8(value: u8) -> Self {
         Self(value & 15)
     }
@@ -31,6 +33,7 @@ impl CastlingInfo {
         }
     }
 
+    #[must_use]
     pub const fn is_set(&self, castling: Castling, side: Side) -> bool {
         let value = match (castling, side) {
             (Castling::KingSide, Side::White) => self.0 & 1,
@@ -41,6 +44,7 @@ impl CastlingInfo {
         value != 0
     }
 
+    #[must_use]
     pub const fn to_chars(&self) -> (usize, [char; 4]) {
         let mut used = 0;
         let mut chars = ['\0', '\0', '\0', '\0'];
@@ -69,6 +73,7 @@ impl CastlingInfo {
         (used, chars)
     }
 
+    #[must_use]
     pub const fn from_char(char: u8) -> Option<(Castling, Side)> {
         match char {
             b'K' => Some((Castling::KingSide, Side::White)),
@@ -103,7 +108,7 @@ impl std::fmt::Display for CastlingInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let chars = self.to_chars();
         for c in chars.1 {
-            write!(f, "{}", c)?;
+            write!(f, "{c}")?;
         }
         Ok(())
     }

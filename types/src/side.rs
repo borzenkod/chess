@@ -2,6 +2,8 @@ use crate::error::ChessError;
 
 /// The enum defining the player side
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 pub enum Side {
     White = 0,
     Black = 1,
@@ -53,7 +55,7 @@ impl TryFrom<String> for Side {
     type Error = ChessError;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
-        let first = value.chars().nth(0).unwrap();
+        let first = value.chars().nth(0).ok_or(ChessError::InvalidSide)?;
         Self::from_char(first)
     }
 }
@@ -62,7 +64,7 @@ impl std::str::FromStr for Side {
     type Err = ChessError;
 
     fn from_str(value: &str) -> Result<Self, Self::Err> {
-        let first = value.chars().nth(0).unwrap();
+        let first = value.chars().nth(0).ok_or(ChessError::InvalidSide)?;
         Self::from_char(first)
     }
 }

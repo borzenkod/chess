@@ -10,3 +10,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+serde = { version = "1.0.228", optional = true, features = ["derive"] }
+serde_repr = { version = "0.1.20", optional = true }
+ts-rs = { version = "11.1.0", optional = true }
+
+[features]
+serde = ["dep:serde", "dep:serde_repr"]
+ts = ["serde", "dep:ts-rs"]
+nightly = []

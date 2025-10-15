@@ -25,6 +25,7 @@ pub struct MoveList {
 }
 
 impl MoveList {
+    #[must_use]
     pub const fn new(side: Side, en_passant: Option<Square>) -> Self {
         Self {
             moves: [Moves::EMPTY; 18],
@@ -35,10 +36,12 @@ impl MoveList {
         }
     }
 
+    #[must_use]
     pub const fn default_const() -> Self {
         Self::new(Side::White, None)
     }
 
+    #[must_use]
     pub const fn is_empty(&self) -> bool {
         self.len == 0
     }
@@ -59,6 +62,7 @@ impl MoveList {
         Some(m)
     }
 
+    #[must_use]
     pub const fn last(&self) -> Option<&Moves> {
         if self.len == 0 {
             return None;
@@ -74,6 +78,7 @@ impl MoveList {
     }
 
 
+    #[must_use]
     pub const fn count(&self) -> usize {
         let mut count = 0;
 
@@ -115,7 +120,7 @@ impl Default for MoveList {
 }
 
 impl std::fmt::Display for Moves {
-    #[coverage(off)]
+    #[cfg_attr(feature="nightly", coverage(off))]
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         writeln!(
             f,
@@ -127,7 +132,7 @@ impl std::fmt::Display for Moves {
 }
 
 impl std::fmt::Display for MoveList {
-    #[coverage(off)]
+    #[cfg_attr(feature="nightly", coverage(off))]
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for i in 0..self.len {
             writeln!(f, "{}", self.moves[i])?;

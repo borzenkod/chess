@@ -19,7 +19,7 @@ const BOARD: Chessboard = match Chessboard::from_fen(FEN) {
     Ok(v) => v,
     Err(_) => unreachable!()
 };
-const COMPUTE_TO: usize = 4;
+const COMPUTE_TO: usize = 3;
 #[allow(long_running_const_eval)]
 const PERFT: [usize; COMPUTE_TO + 1] = {
     let mut arr = [0usize; COMPUTE_TO + 1];

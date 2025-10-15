@@ -22,14 +22,17 @@ impl PieceType {
     ];
     pub const LEN: usize = 6;
 
+    #[must_use]
     pub const fn as_u8(&self) -> u8 {
         *self as u8
     }
 
+    #[must_use]
     pub const fn from_u8(value: u8) -> Self {
         unsafe { std::mem::transmute(value & 7) }
     }
 
+    #[must_use]
     pub const fn to_char(&self) -> char {
         match self {
             PieceType::Pawn => 'p',
@@ -42,6 +45,9 @@ impl PieceType {
     }
 }
 
+/// Piece type
+///
+/// Internally represented as unsigned byte
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Piece(u8);
 
@@ -60,17 +66,26 @@ impl Piece {
     pub const BLACK_QUEEN: Self = Self::from_side_and_type(Side::Black, PieceType::Queen);
     pub const BLACK_KING: Self = Self::from_side_and_type(Side::Black, PieceType::King);
 
+    #[must_use]
     pub const fn as_u8(&self) -> u8 {
         self.0
     }
 
+    #[must_use]
+    /// Convert from unsigned byte to [`Piece`]
+    ///
+    /// # Panics
+    /// This function may panic. (see [`safe_variant`])
+    ///
+    /// Panics if piece has invalid range
+    ///
+    /// [`safe_variant`]: [`Piece::from_u8_safe`]
     pub const fn from_u8(piece: u8) -> Self {
-        if piece > 10 {
-            panic!("Invalid piece");
-        }
+        assert!(piece <= 10, "Invalid piece");
         unsafe { std::mem::transmute(piece) }
     }
 
+    /// Safely convert
     pub fn from_u8_safe(piece: u8) -> Result<Self, ChessError> {
         if piece > 10 {
             Err(ChessError::InvalidPiece)

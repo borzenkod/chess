@@ -199,10 +199,12 @@ impl File {
     }
 }
 
-/// Square on the chessboard
+/// Square of the chessboard
 ///
 /// Represented as a number from 0 to 63
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[cfg_attr(feature = "serde", derive(serde_repr::Serialize_repr, serde_repr::Deserialize_repr))]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS), ts(type="number"))]
 #[rustfmt::skip]
 #[repr(u8)]
 pub enum Square {
