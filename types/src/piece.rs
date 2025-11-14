@@ -2,6 +2,8 @@ use crate::{Side, error::ChessError, piece};
 
 /// The enum representing the chess pieces
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 pub enum PieceType {
     Pawn,
     Rook,
@@ -49,6 +51,9 @@ impl PieceType {
 ///
 /// Internally represented as unsigned byte
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS), ts(type="number"))]
+#[repr(transparent)]
 pub struct Piece(u8);
 
 impl Piece {
