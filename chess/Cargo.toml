@@ -31,3 +31,5 @@ criterion = "0.7.0"
 serde = ["types/serde"]
 ts = ["types/ts"]
 nightly = ["types/nightly"]
+
+no_std = []

@@ -48,6 +48,7 @@ impl Chessboard {
         Ok(s)
     }
 
+    #[cfg(not(feature = "no_std"))]
     pub fn get_fen(&self) -> String {
         self.inner.get_fen()
     }
@@ -247,6 +248,7 @@ impl Chessboard {
         }
     }
 
+    #[cfg(not(feature = "no_std"))]
     pub fn to_vec(&self) -> Vec<Move> {
         let mut vec = Vec::new();
         let mut move_gen = MoveGen::new(self.moves_cache);
@@ -266,8 +268,8 @@ impl TryFrom<ChessboardRaw> for Chessboard {
     }
 }
 
-impl std::fmt::Display for Chessboard {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl core::fmt::Display for Chessboard {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         self.inner.fmt(f)
     }
 }

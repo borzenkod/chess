@@ -2,6 +2,7 @@ use chess::{Chessboard, ChessboardRaw, EMPTY_POS, KIWIPETE_POS, Move, Piece, STA
 use types::{Castling, GameResult, WinType};
 
 #[test]
+#[cfg(not(feature = "no_std"))]
 fn new_starting() {
     let chess = ChessboardRaw::from_fen(START_POS).unwrap();
     assert_eq!(chess.get_fen(), START_POS);
@@ -13,6 +14,7 @@ fn new_starting() {
 }
 
 #[test]
+#[cfg(not(feature = "no_std"))]
 fn game_over() {
     static FEN: &str = "rnb1kbnr/pppp1ppp/8/4p3/6Pq/5P2/PPPPP2P/RNBQKBNR w KQkq - 1 3";
     let chess =
@@ -25,12 +27,14 @@ fn game_over() {
 }
 
 #[test]
+#[cfg(not(feature = "no_std"))]
 fn new_empty() {
     let chess = ChessboardRaw::from_fen(EMPTY_POS).unwrap();
     assert_eq!(chess.get_fen(), EMPTY_POS);
 }
 
 #[test]
+#[cfg(not(feature = "no_std"))]
 fn new_kiwipete() {
     let chess = Chessboard::from_fen(KIWIPETE_POS).unwrap();
     assert_eq!(chess.get_fen(), KIWIPETE_POS);
@@ -48,6 +52,7 @@ fn en_passant() {
 }
 
 #[test]
+#[cfg(not(feature = "no_std"))]
 fn new_half() {
     const POS_HALF: &str = "8/8/8/8/8/8/8/8 w";
     const POS_FULL: &str = "8/8/8/8/8/8/8/8 w - - 0 1";
@@ -56,6 +61,7 @@ fn new_half() {
 }
 
 #[test]
+#[cfg(not(feature = "no_std"))]
 fn into_raw() {
     let chess = ChessboardRaw::from_fen(START_POS).unwrap();
     let chess: Chessboard = chess.try_into().unwrap();
@@ -64,12 +70,14 @@ fn into_raw() {
 }
 
 #[test]
+#[cfg(not(feature = "no_std"))]
 fn default() {
     let chess = ChessboardRaw::default();
     assert_eq!(chess.get_fen(), EMPTY_POS);
 }
 
 #[test]
+#[cfg(not(feature = "no_std"))]
 fn moves() {
     fn make_move(fen: &str, want: &str, m: Move) {
         println!("{}", fen);

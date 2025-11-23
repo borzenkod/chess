@@ -41,6 +41,7 @@ impl ChessboardRaw {
         FenBuilder::build_fen(fen)
     }
 
+    #[cfg(not(feature = "no_std"))]
     pub fn get_fen(&self) -> String {
         FenBuilder::get_fen(self)
     }
@@ -293,8 +294,8 @@ impl From<Chessboard> for ChessboardRaw {
     }
 }
 
-impl std::fmt::Display for ChessboardRaw {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl core::fmt::Display for ChessboardRaw {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         for rank in Rank::ALL.into_iter().rev() {
             for file in File::ALL {
                 let sq = Square::at(file, rank);

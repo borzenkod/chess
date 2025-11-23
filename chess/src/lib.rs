@@ -1,5 +1,6 @@
 #![doc = include_str!("../../README.md")]
 #![feature(const_destruct)]
+#![cfg_attr(feature = "no_std", no_std)]
 #![warn(
     clippy::unwrap_used,
     clippy::expect_used,

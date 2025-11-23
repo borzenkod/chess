@@ -7,6 +7,7 @@ const IGNORE_WARNINGS: bool = true;
 pub struct FenBuilder;
 
 impl FenBuilder {
+    #[cfg(not(feature = "no_std"))]
     pub fn get_fen(cr: &ChessboardRaw) -> String {
         let mut fen = String::with_capacity(80);
 
