@@ -63,7 +63,7 @@ impl Rank {
         if rank > 7 {
             panic!("rank must be in range 0..8");
         }
-        unsafe { std::mem::transmute(rank) }
+        unsafe { core::mem::transmute(rank) }
     }
 
     pub const fn from_char(c: char) -> Option<Self> {
@@ -84,7 +84,7 @@ impl Rank {
         if rank > 7 {
             None
         } else {
-            Some(unsafe { std::mem::transmute::<u8, square::Rank>(rank) })
+            Some(unsafe { core::mem::transmute::<u8, square::Rank>(rank) })
         }
     }
 
@@ -177,14 +177,14 @@ impl File {
         if file > 7 {
             panic!("file must be in range 0..8");
         }
-        unsafe { std::mem::transmute(file) }
+        unsafe { core::mem::transmute(file) }
     }
 
     pub const fn from_u8_safe(file: u8) -> Option<Self> {
         if file > 7 {
             None
         } else {
-            Some(unsafe { std::mem::transmute::<u8, square::File>(file) })
+            Some(unsafe { core::mem::transmute::<u8, square::File>(file) })
         }
     }
 
@@ -237,7 +237,7 @@ impl Square {
     }
 
     pub const fn from_u8(sq: u8) -> Self {
-        unsafe { std::mem::transmute(sq & 63) }
+        unsafe { core::mem::transmute(sq & 63) }
     }
 
     pub const fn rank(&self) -> Rank {
@@ -320,6 +320,7 @@ impl From<u8> for Square {
     }
 }
 
+#[cfg(not(feature="no_std"))]
 impl TryFrom<&str> for Square {
     type Error = ChessError;
 

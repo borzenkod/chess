@@ -18,3 +18,4 @@ ts-rs = { version = "11.1.0", optional = true }
 serde = ["dep:serde", "dep:serde_repr"]
 ts = ["serde", "dep:ts-rs"]
 nightly = []
+no_std = []

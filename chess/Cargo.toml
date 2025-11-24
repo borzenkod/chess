@@ -32,4 +32,4 @@ serde = ["types/serde"]
 ts = ["types/ts"]
 nightly = ["types/nightly"]
 
-no_std = []
+no_std = ["types/no_std"]

@@ -104,8 +104,8 @@ impl From<u8> for CastlingInfo {
     }
 }
 
-impl std::fmt::Display for CastlingInfo {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl core::fmt::Display for CastlingInfo {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         let chars = self.to_chars();
         for c in chars.1 {
             write!(f, "{c}")?;

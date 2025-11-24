@@ -119,9 +119,9 @@ impl Default for MoveList {
     }
 }
 
-impl std::fmt::Display for Moves {
+impl core::fmt::Display for Moves {
     #[cfg_attr(feature="nightly", coverage(off))]
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         writeln!(
             f,
             "-- Moves for {{ p: {:?}, from: {:?} }}",
@@ -131,9 +131,9 @@ impl std::fmt::Display for Moves {
     }
 }
 
-impl std::fmt::Display for MoveList {
+impl core::fmt::Display for MoveList {
     #[cfg_attr(feature="nightly", coverage(off))]
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         for i in 0..self.len {
             writeln!(f, "{}", self.moves[i])?;
         }

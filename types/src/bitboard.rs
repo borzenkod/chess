@@ -274,8 +274,8 @@ impl Iterator for Bitboard {
     }
 }
 
-impl std::fmt::Display for Bitboard {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl core::fmt::Display for Bitboard {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         for rank in Rank::ALL.into_iter().rev() {
             for file in File::ALL {
                 let sq = Square::at(file, rank);

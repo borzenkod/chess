@@ -25,7 +25,7 @@ impl Side {
     }
 
     pub const fn from_u8(side: u8) -> Self {
-        unsafe { std::mem::transmute(side & 1) }
+        unsafe { core::mem::transmute(side & 1) }
     }
 
     pub const fn from_char(c: char) -> Result<Self, ChessError> {
@@ -51,6 +51,7 @@ impl core::ops::Not for Side {
     }
 }
 
+#[cfg(not(feature = "no_std"))]
 impl TryFrom<String> for Side {
     type Error = ChessError;
 
@@ -60,7 +61,7 @@ impl TryFrom<String> for Side {
     }
 }
 
-impl std::str::FromStr for Side {
+impl core::str::FromStr for Side {
     type Err = ChessError;
 
     fn from_str(value: &str) -> Result<Self, Self::Err> {

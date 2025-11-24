@@ -1,4 +1,5 @@
 #![cfg_attr(feature="nightly", feature(coverage_attribute))]
+#![cfg_attr(feature="no_std", no_std)]
 
 mod bitboard;
 mod castling;

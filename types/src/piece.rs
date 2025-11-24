@@ -31,7 +31,7 @@ impl PieceType {
 
     #[must_use]
     pub const fn from_u8(value: u8) -> Self {
-        unsafe { std::mem::transmute(value & 7) }
+        unsafe { core::mem::transmute(value & 7) }
     }
 
     #[must_use]
@@ -87,7 +87,7 @@ impl Piece {
     /// [`safe_variant`]: [`Piece::from_u8_safe`]
     pub const fn from_u8(piece: u8) -> Self {
         assert!(piece <= 10, "Invalid piece");
-        unsafe { std::mem::transmute(piece) }
+        unsafe { core::mem::transmute(piece) }
     }
 
     /// Safely convert
@@ -95,7 +95,7 @@ impl Piece {
         if piece > 10 {
             Err(ChessError::InvalidPiece)
         } else {
-            Ok(unsafe { std::mem::transmute::<u8, piece::Piece>(piece) })
+            Ok(unsafe { core::mem::transmute::<u8, piece::Piece>(piece) })
         }
     }
 
@@ -135,11 +135,11 @@ impl Piece {
     }
 
     pub const fn piece_type(&self) -> PieceType {
-        unsafe { std::mem::transmute(self.0 & 7) }
+        unsafe { core::mem::transmute(self.0 & 7) }
     }
 
     pub const fn side(&self) -> Side {
-        unsafe { std::mem::transmute((self.0 >> 3) & 1) }
+        unsafe { core::mem::transmute((self.0 >> 3) & 1) }
     }
 }
 
